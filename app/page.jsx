@@ -1,8 +1,4 @@
-import React from "react";
-import { createRoot } from "react-dom/client";
-import "./styles.css";
-
-function App() {
+export default function Home() {
   return (
     <main>
       <section className="card">
@@ -24,9 +20,3 @@ function App() {
     </main>
   );
 }
-
-createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-);
