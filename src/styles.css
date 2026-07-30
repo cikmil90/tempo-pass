@@ -3,18 +3,10 @@
   --ink: #09070d;
   --cream: #fff5d8;
   --gold: #d8a938;
-  --violet: #7a43b6;
 }
 
-* {
-  box-sizing: border-box;
-}
-
-html,
-body {
-  min-height: 100%;
-  margin: 0;
-}
+* { box-sizing: border-box; }
+html, body, #root { min-height: 100%; margin: 0; }
 
 body {
   font-family: Arial, Helvetica, sans-serif;
