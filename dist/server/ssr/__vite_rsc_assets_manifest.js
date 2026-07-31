@@ -1,8 +1,8 @@
 export default {
-  "bootstrapScriptContent": "import(\"/_next/static/chunks/index-CFLE1U92.js\")",
+  "bootstrapScriptContent": "import(\"/_next/static/chunks/index-BY7J4oJv.js\")",
   "clientEntryDeps": {
     "js": [
-      "/_next/static/chunks/index-CFLE1U92.js",
+      "/_next/static/chunks/index-BY7J4oJv.js",
       "/_next/static/chunks/rolldown-runtime-QTnfLwEv.js",
       "/_next/static/chunks/framework-BQUlGUOV.js"
     ],
@@ -11,16 +11,16 @@ export default {
   "clientReferenceDeps": {
     "8e14b8a70c1e": {
       "js": [
-        "/_next/static/chunks/page-DnIer-np.js",
+        "/_next/static/chunks/page-B5YFyvwm.js",
         "/_next/static/chunks/rolldown-runtime-QTnfLwEv.js",
         "/_next/static/chunks/framework-BQUlGUOV.js",
-        "/_next/static/chunks/index-CFLE1U92.js"
+        "/_next/static/chunks/index-BY7J4oJv.js"
       ],
       "css": []
     },
     "9276801271d6": {
       "js": [
-        "/_next/static/chunks/index-CFLE1U92.js",
+        "/_next/static/chunks/index-BY7J4oJv.js",
         "/_next/static/chunks/rolldown-runtime-QTnfLwEv.js",
         "/_next/static/chunks/framework-BQUlGUOV.js"
       ],
@@ -28,7 +28,7 @@ export default {
     },
     "0b874ad30386": {
       "js": [
-        "/_next/static/chunks/index-CFLE1U92.js",
+        "/_next/static/chunks/index-BY7J4oJv.js",
         "/_next/static/chunks/rolldown-runtime-QTnfLwEv.js",
         "/_next/static/chunks/framework-BQUlGUOV.js"
       ],
@@ -36,7 +36,7 @@ export default {
     },
     "593f344dc510": {
       "js": [
-        "/_next/static/chunks/index-CFLE1U92.js",
+        "/_next/static/chunks/index-BY7J4oJv.js",
         "/_next/static/chunks/rolldown-runtime-QTnfLwEv.js",
         "/_next/static/chunks/framework-BQUlGUOV.js"
       ],
@@ -44,7 +44,7 @@ export default {
     },
     "bad85346fc72": {
       "js": [
-        "/_next/static/chunks/index-CFLE1U92.js",
+        "/_next/static/chunks/index-BY7J4oJv.js",
         "/_next/static/chunks/rolldown-runtime-QTnfLwEv.js",
         "/_next/static/chunks/framework-BQUlGUOV.js"
       ],
@@ -52,16 +52,16 @@ export default {
     },
     "15c18cfaeeff": {
       "js": [
-        "/_next/static/chunks/layout-segment-context-C0uDyDj-.js",
+        "/_next/static/chunks/layout-segment-context-CiGcB-HI.js",
         "/_next/static/chunks/rolldown-runtime-QTnfLwEv.js",
         "/_next/static/chunks/framework-BQUlGUOV.js",
-        "/_next/static/chunks/index-CFLE1U92.js"
+        "/_next/static/chunks/index-BY7J4oJv.js"
       ],
       "css": []
     },
     "8c0f216c4604": {
       "js": [
-        "/_next/static/chunks/index-CFLE1U92.js",
+        "/_next/static/chunks/index-BY7J4oJv.js",
         "/_next/static/chunks/rolldown-runtime-QTnfLwEv.js",
         "/_next/static/chunks/framework-BQUlGUOV.js"
       ],
@@ -72,7 +72,7 @@ export default {
         "/_next/static/chunks/streamed-icons-DwsKSgMb.js",
         "/_next/static/chunks/rolldown-runtime-QTnfLwEv.js",
         "/_next/static/chunks/framework-BQUlGUOV.js",
-        "/_next/static/chunks/index-CFLE1U92.js"
+        "/_next/static/chunks/index-BY7J4oJv.js"
       ],
       "css": []
     }
@@ -81,7 +81,7 @@ export default {
     "app/layout.jsx": {
       "js": [],
       "css": [
-        "/_next/static/css/layout.BsV-iGA9.css"
+        "/_next/static/css/layout.CN2bwIhY.css"
       ]
     }
   }

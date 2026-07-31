@@ -49,7 +49,10 @@ export default function Home() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [treat, setTreat] = useState("");
+  const [entryConsent, setEntryConsent] = useState(false);
   const [consent, setConsent] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [entryReference, setEntryReference] = useState("");
 
   const prize = useMemo(() => (code ? PRIZES[code[0]] : null), [code]);
 
@@ -72,17 +75,22 @@ export default function Home() {
       return setError("Enter a valid WhatsApp number with country code.");
     }
     if (code.startsWith("T-") && !treat) return setError("Choose your Tempo treat.");
+    if (!entryConsent) return setError("Please agree so Tempo can manage your prize and draw entry.");
 
+    const reference = Date.now().toString(36).toUpperCase();
     const lines = [
       "Hi Tempo, I’d like to register my CULT 2Y pass.",
-      `Entry reference: ${Date.now().toString(36).toUpperCase()}`,
+      `Entry reference: ${reference}`,
       `Code: ${code}`,
       `Name: ${name.trim()}`,
       `WhatsApp: ${phone.trim()}`,
       code.startsWith("T-") ? `Treat: ${treat}` : "",
+      "Prize/draw data consent: Yes",
       `Guest list consent: ${consent ? "Yes" : "No"}`,
     ].filter(Boolean);
-    window.location.href = `https://wa.me/66627261098?text=${encodeURIComponent(lines.join("\n"))}`;
+    setEntryReference(reference);
+    setSubmitted(true);
+    window.open(`https://wa.me/66627261098?text=${encodeURIComponent(lines.join("\n"))}`, "_blank", "noopener,noreferrer");
   }
 
   function reset() {
@@ -91,7 +99,10 @@ export default function Home() {
     setName("");
     setPhone("");
     setTreat("");
+    setEntryConsent(false);
     setConsent(false);
+    setSubmitted(false);
+    setEntryReference("");
     setError("");
   }
 
@@ -108,7 +119,29 @@ export default function Home() {
       <section className="pass-card">
         <div className="notch notch-left" />
         <div className="notch notch-right" />
-        {!prize ? (
+        {submitted ? (
+          <div className="registration success-screen">
+            <p className="eyebrow">ENTRY {entryReference}</p>
+            <div className="prize-icon" aria-hidden="true">✦</div>
+            <h1>You’re in.<br />Keep the ticket.</h1>
+            <p className="lead prize-copy">Send the prepared WhatsApp message to finish your registration. Then keep your original physical ticket safe—you must hand it to Tempo staff when you redeem your prize.</p>
+
+            <div className="draw-card">
+              <p className="draw-kicker">THE ULTIMATE TEMPO NIGHT</p>
+              <h2>฿25,000</h2>
+              <p className="draw-title">Tempo party-credit prize pool</p>
+              <p>One seriously good night at Tempo, made to spend with your friends.</p>
+            </div>
+
+            <div className="mystery-copy">
+              <strong>Finalists drawn 15 August</strong>
+              <p>Selected entrants will face one small, fun mystery challenge. We’re keeping the details secret for now. Bring your ticket and your game face.</p>
+            </div>
+
+            <div className="ticket-warning"><span>!</span><p><strong>Do not lose your physical ticket.</strong> Registration alone is not enough for redemption. No original ticket, no prize.</p></div>
+            <button className="secondary-button" type="button" onClick={reset}>Register another ticket</button>
+          </div>
+        ) : !prize ? (
           <div className="intro">
             <p className="eyebrow">YOU’RE HOLDING A WINNER</p>
             <div className="seal" aria-hidden="true"><span>T</span></div>
@@ -164,12 +197,16 @@ export default function Home() {
                   </select>
                 </div>
               )}
+              <label className="consent full required-consent">
+                <input type="checkbox" checked={entryConsent} onChange={(e) => setEntryConsent(e.target.checked)} />
+                <span><strong>Required for entry</strong> I agree that Tempo may use these details to register and manage my pass, draw entry, prize and redemption.</span>
+              </label>
               <label className="consent full">
                 <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} />
                 <span><strong>Add me to Tempo’s guest list ✨</strong> Send me occasional WhatsApp drops with giveaways, invitations and rewards. I can leave anytime.</span>
               </label>
-              <button className="register-button full" type="submit">Register with Tempo <span>↗</span></button>
-              <p className="privacy full">Each pass holder registers separately, even when tickets share a colour code. This opens WhatsApp with your details ready to send. Registration is confirmed by Tempo after the message is received. Marketing consent is optional.</p>
+              <button className="register-button full" type="submit">Continue to WhatsApp <span>↗</span></button>
+              <p className="privacy full">Each pass holder registers separately, even when tickets share a colour code. Send the prepared WhatsApp message to complete your entry. Keep your original physical ticket: staff will collect it when you redeem. Marketing consent is optional.</p>
             </form>
           </div>
         )}
