@@ -75,6 +75,7 @@ export default function Home() {
 
     const lines = [
       "Hi Tempo, I’d like to register my CULT 2Y pass.",
+      `Entry reference: ${Date.now().toString(36).toUpperCase()}`,
       `Code: ${code}`,
       `Name: ${name.trim()}`,
       `WhatsApp: ${phone.trim()}`,
@@ -112,7 +113,7 @@ export default function Home() {
             <p className="eyebrow">YOU’RE HOLDING A WINNER</p>
             <div className="seal" aria-hidden="true"><span>T</span></div>
             <h1>Let’s reveal<br />your Tempo prize.</h1>
-            <p className="lead">Enter the unique code printed on your pass. Every ticket wins something worth leaving the house for.</p>
+            <p className="lead">Enter the code printed on your pass. Every ticket wins something worth leaving the house for.</p>
             <form className="lookup" onSubmit={reveal}>
               <label htmlFor="code">Your pass code</label>
               <div className="code-row">
@@ -168,7 +169,7 @@ export default function Home() {
                 <span><strong>Add me to Tempo’s guest list ✨</strong> Send me occasional WhatsApp drops with giveaways, invitations and rewards. I can leave anytime.</span>
               </label>
               <button className="register-button full" type="submit">Register with Tempo <span>↗</span></button>
-              <p className="privacy full">This opens WhatsApp with your details ready to send. Registration is confirmed by Tempo after the message is received. Marketing consent is optional.</p>
+              <p className="privacy full">Each pass holder registers separately, even when tickets share a colour code. This opens WhatsApp with your details ready to send. Registration is confirmed by Tempo after the message is received. Marketing consent is optional.</p>
             </form>
           </div>
         )}
