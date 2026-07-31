@@ -3,13 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Reveal and register your Tempo prize pass from CULT's second anniversary.">
-    <meta name="theme-color" content="#08070b">
+    <meta name="description" content="Reveal and register your Tempo prize pass." />
+    <meta name="theme-color" content="#08070b" />
+    <meta http-equiv="refresh" content="0;url=https://tempo-pass.170.64.189.40.nip.io/" />
     <title>Tempo Pass × CULT 2Y</title>
-    <script type="module" crossorigin src="/tempo-pass/assets/index-DauRwLm5.js"></script>
-    <link rel="stylesheet" crossorigin href="/tempo-pass/assets/index-lbICa4wm.css">
+    <script>
+      const destination = new URL("https://tempo-pass.170.64.189.40.nip.io/");
+      destination.search = window.location.search;
+      destination.hash = window.location.hash;
+      window.location.replace(destination.toString());
+    </script>
   </head>
   <body>
-    <div id="root"></div>
+    <p>
+      Opening Tempo Pass…
+      <a href="https://tempo-pass.170.64.189.40.nip.io/">Continue</a>
+    </p>
   </body>
 </html>
