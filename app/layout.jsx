@@ -1,8 +1,8 @@
 import "./styles.css";
 
 export const metadata = {
-  title: "Tempo Pass",
-  description: "Register and redeem your Tempo prize pass.",
+  title: "Tempo Pass × CULT 2Y",
+  description: "Reveal and register your Tempo prize pass from CULT's second anniversary.",
 };
 
 export default function RootLayout({ children }) {
