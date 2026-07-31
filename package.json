@@ -5,18 +5,24 @@
   "type": "module",
   "scripts": {
     "dev": "vinext dev",
-    "build": "vinext build && mkdir -p dist/.openai && cp .openai/hosting.json dist/.openai/hosting.json",
-    "start": "vinext start"
+    "build": "vinext build",
+    "start": "node server/index.js",
+    "test": "node --test tests/*.test.js"
   },
   "dependencies": {
-    "react": "19.2.8",
-    "react-dom": "19.2.8",
-    "react-server-dom-webpack": "19.2.8",
-    "vinext": "1.0.0-beta.4"
+    "better-sqlite3": "^13.0.2",
+    "express": "^5.2.1",
+    "html5-qrcode": "^2.3.8",
+    "qrcode": "^1.5.4",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "react-server-dom-webpack": "^19.2.8",
+    "vinext": "^1.0.0-beta.4"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "latest",
     "@vitejs/plugin-rsc": "latest",
+    "supertest": "^7.2.2",
     "vite": "latest"
   }
 }

@@ -1,0 +1,25 @@
+import { randomBytes, randomUUID, createHash, scryptSync, timingSafeEqual } from "node:crypto";
+import { normalizeCode, normalizeWhatsApp } from "../lib/pass.js";
+
+const PRIZES={G:["Golden Ticket","฿2,000 Tempo credit"],R:["Private Room Pass","Two private-room hours"],T:["Tempo Treat Pass","One Tempo treat"]};
+const now=()=>new Date().toISOString();
+export const hashToken=t=>createHash("sha256").update(t).digest("hex");
+export function hashPassword(password,salt=randomBytes(16).toString("hex")){const digest=scryptSync(password,salt,64).toString("hex");return `scrypt$${salt}$${digest}`}
+export function verifyPassword(password,stored){try{const[,salt,digest]=stored.split("$");return timingSafeEqual(Buffer.from(digest,"hex"),scryptSync(password,salt,64))}catch{return false}}
+export function isTestEntrant(name,whatsapp,testHashes=[]){const n=name.toLowerCase().replace(/[^a-z]/g,"");return /^milhous(e|en|enne|sen)?/.test(n)||testHashes.includes(hashToken(whatsapp))}
+const ref=()=>`TP-${randomBytes(4).toString("hex").toUpperCase()}`;
+
+export function register(db,input,{testHashes=[]}={}){
+ const code=normalizeCode(input.shared_code), wa=normalizeWhatsApp(input.whatsapp), name=String(input.preferred_name||"").trim().slice(0,80);
+ if(!code)throw Object.assign(new Error("Use G-001, R-001 or T-001."),{status:400}); if(!name)throw Object.assign(new Error("Tell us what to call you."),{status:400}); if(!wa)throw Object.assign(new Error("Enter your WhatsApp number with country code."),{status:400}); if(input.required_consent!==true)throw Object.assign(new Error("Entry consent is required."),{status:400});
+ if(code[0]==="T"&&!String(input.treat_choice||"").trim())throw Object.assign(new Error("Choose your Tempo treat."),{status:400});
+ const token=randomBytes(32).toString("base64url"), id=randomUUID(), at=now(), [tier,prize]=PRIZES[code[0]], entryRef=ref();
+ db.transaction(()=>{db.prepare(`INSERT INTO entrants(id,entry_reference,preferred_name,whatsapp,shared_code,tier,instant_prize,treat_choice,required_consent,required_consent_version,required_consent_at,marketing_consent,marketing_consent_version,marketing_consent_at,qr_token_hash,is_test,registered_at,updated_at) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`).run(id,entryRef,name,wa,code,tier,prize,input.treat_choice||null,1,"event-prize-v1",at,input.marketing_consent?1:0,input.marketing_consent?"marketing-v1":null,input.marketing_consent?at:null,hashToken(token),isTestEntrant(name,wa,testHashes)?1:0,at,at);audit(db,"public",null,"entrant.registered",id,{shared_code:code})})();
+ return {id,entry_reference:entryRef,preferred_name:name,shared_code:code,tier,instant_prize:prize,manage_token:token,is_test:isTestEntrant(name,wa,testHashes)};
+}
+export function getByToken(db,token){if(!token)return null;return hydrate(db.prepare("SELECT * FROM entrants WHERE qr_token_hash=?").get(hashToken(token)))}
+export function updatePreferences(db,token,input){const row=getByToken(db,token);if(!row)throw Object.assign(new Error("Pass not found."),{status:404});const rsvp=["unset","coming","remind_later"].includes(input.rsvp_status)?input.rsvp_status:row.rsvp_status;const size=Math.max(1,Math.min(20,Number(input.party_size)||1));const interests=Array.isArray(input.interests)?input.interests.slice(0,20):row.interests;db.prepare("UPDATE entrants SET rsvp_status=?,party_size=?,interests_json=?,whatsapp_updates=?,reminder_choice=?,updated_at=? WHERE id=?").run(rsvp,size,JSON.stringify(interests),input.whatsapp_updates?1:0,input.reminder_choice||"none",now(),row.id);audit(db,"entrant",row.id,"entrant.preferences_updated",row.id,{rsvp,size});return getByToken(db,token)}
+export function recover(db,entryReference,whatsapp){const wa=normalizeWhatsApp(whatsapp);if(!wa)return null;const row=db.prepare("SELECT * FROM entrants WHERE upper(entry_reference)=upper(?) AND whatsapp=?").get(String(entryReference||"").trim(),wa);if(!row)return null;const token=randomBytes(32).toString("base64url");db.prepare("UPDATE entrants SET qr_token_hash=?,updated_at=? WHERE id=?").run(hashToken(token),now(),row.id);audit(db,"public",null,"entrant.token_rotated",row.id,{});return {entry_reference:row.entry_reference,manage_token:token}}
+export function checkIn(db,row,user){if(row.checked_in_at)return {...hydrate(row),already_checked_in:true};const at=now();db.prepare("UPDATE entrants SET checked_in_at=?,checked_in_by=?,updated_at=? WHERE id=?").run(at,user.display_name,at,row.id);audit(db,"validator",String(user.id),"entrant.checked_in",row.id,{});return {...hydrate(db.prepare("SELECT * FROM entrants WHERE id=?").get(row.id)),already_checked_in:false}}
+export function hydrate(r){if(!r)return null;return {...r,required_consent:!!r.required_consent,marketing_consent:!!r.marketing_consent,whatsapp_updates:!!r.whatsapp_updates,is_test:!!r.is_test,interests:JSON.parse(r.interests_json||"[]")}}
+export function audit(db,actorType,actorId,action,entrantId,detail){db.prepare("INSERT INTO audit_log(actor_type,actor_id,action,entrant_id,detail_json,created_at) VALUES(?,?,?,?,?,?)").run(actorType,actorId,action,entrantId,JSON.stringify(detail||{}),now())}

@@ -1,2 +1,12 @@
 .next/
 node_modules/
+dist/
+data/
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+.env
+.env.local
+backups/
+.staging-runtime/
+review/
