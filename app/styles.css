@@ -79,6 +79,16 @@ button:disabled { cursor: not-allowed; opacity: .55; }
 .draw-card p { margin: 8px auto 0; max-width: 430px; color: rgba(255,244,217,.68); font-size: 13px; line-height: 1.55; }
 .draw-card .draw-kicker { margin: 0; color: var(--accent); font-size: 10px; font-weight: 800; letter-spacing: .22em; }
 .draw-card .draw-title { margin-top: 2px; color: var(--cream); font: 700 21px "Playfair Display", Georgia, serif; }
+.launch-prize { max-width: 590px; margin: 24px auto 18px; padding: 22px 20px; border: 1px solid color-mix(in srgb, var(--accent) 64%, transparent); border-radius: 18px; background: linear-gradient(145deg, color-mix(in srgb, var(--accent) 14%, transparent), rgba(255,255,255,.025)); box-shadow: inset 0 0 38px color-mix(in srgb, var(--accent) 5%, transparent); }
+.launch-prize .draw-kicker { margin: 0 0 16px; color: var(--accent); font-size: 10px; font-weight: 900; letter-spacing: .18em; }
+.launch-podium { display: grid; grid-template-columns: 1.15fr 1fr 1fr; gap: 8px; }
+.launch-podium strong { min-height: 74px; padding: 12px 8px; display: flex; flex-direction: column; justify-content: center; border: 1px solid rgba(255,255,255,.1); border-radius: 12px; color: var(--cream); background: rgba(255,255,255,.045); font: 700 20px/1.05 "Playfair Display", Georgia, serif; }
+.launch-podium strong:first-child { color: #171006; background: linear-gradient(135deg, #fff1af, #c38a29 56%, #f3d27d); }
+.launch-podium small { margin-bottom: 6px; font: 900 8px/1 system-ui, sans-serif; letter-spacing: .18em; }
+.launch-podium .dinner-prize { font-size: 16px; line-height: 1.12; }
+.launch-prize>p { margin: 14px auto 0; max-width: 500px; color: rgba(255,244,217,.68); font-size: 12px; line-height: 1.5; }
+.launch-prize em { display: block; margin-top: 9px; color: rgba(255,244,217,.48); font: italic 12px/1.4 "Playfair Display", Georgia, serif; }
+.instant-hook { margin: 16px auto 18px; font-weight: 700; }
 .mystery-copy { max-width: 520px; margin: 0 auto 18px; }
 .mystery-copy strong { color: var(--cream); font-size: 15px; }
 .mystery-copy p { margin: 6px 0 0; color: rgba(255,244,217,.6); font-size: 13px; line-height: 1.55; }
@@ -93,6 +103,11 @@ footer i { width: 3px; height: 3px; border-radius: 50%; background: var(--accent
 .outside-note { position: relative; z-index: 2; margin: 22px 0 0; color: rgba(255,244,217,.35); font: italic 13px "Playfair Display", serif; }
 .form-title { margin: 0; text-align: center; font-weight: 800; letter-spacing: .1em; }
 .personal-qr { width: min(270px, 80%); padding: 12px; border-radius: 18px; background: var(--cream); }
+.success-screen .lead { margin-bottom: 18px; }
+.inline-rsvp { max-width: 590px; margin: 30px auto 0; padding: 26px 22px; border-top: 1px solid rgba(255,255,255,.11); }
+.inline-rsvp h2 { margin: 0 0 8px; font: 800 34px/1.05 "Playfair Display", Georgia, serif; }
+.inline-rsvp>p:not(.eyebrow) { margin: 0 auto 20px; color: rgba(255,244,217,.62); font-size: 13px; line-height: 1.5; }
+.inline-rsvp .eyebrow { margin-bottom: 12px; }
 .action-row { display: flex; justify-content: center; gap: 12px; margin: 24px auto; flex-wrap: wrap; }
 .action-row .register-button, .link-button { min-height: 46px; padding: 13px 20px; border-radius: 12px; text-decoration: none; }
 .choice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-width: 560px; margin: 0 auto 22px; }
@@ -102,6 +117,9 @@ footer i { width: 3px; height: 3px; border-radius: 50%; background: var(--accent
 .wide { min-height: 50px; padding: 0 28px; border-radius: 12px; }
 .chips { max-width: 590px; margin: 26px auto; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
 .reminder { max-width: 480px; margin: 18px auto; text-align: left; }
+.compact-draw { padding: 17px 18px; }
+.compact-draw p { max-width: 510px; }
+.compact-draw strong { color: var(--cream); }
 .portal { min-height: 100vh; padding: 30px; display: block; overflow: auto; background: radial-gradient(circle at 50% -10%, #34203f, #08070b 55%); }
 .login-card, .validator { width: min(560px,100%); margin: 7vh auto; padding: 42px; border: 1px solid rgba(228,189,99,.45); border-radius: 22px; background: rgba(11,9,14,.94); }
 .login-card form, .validator form { display: grid; gap: 12px; margin-top: 28px; }
@@ -138,6 +156,10 @@ table { width: 100%; border-collapse: collapse; font-size: 12px; } th,td { paddi
   .seal { width: 68px; height: 68px; }
   .seal span { font-size: 31px; }
   .lead { font-size: 14px; margin: 18px auto 24px; }
+  .launch-prize { margin-top: 18px; padding: 18px 14px; }
+  .launch-podium { grid-template-columns: 1fr 1fr; }
+  .launch-podium strong:first-child { grid-column: 1 / -1; min-height: 70px; font-size: 27px; }
+  .launch-podium strong { min-height: 64px; font-size: 17px; }
   .code-row { grid-template-columns: 1fr; }
   .code-row button { min-height: 52px; }
   .details { grid-template-columns: 1fr; }
